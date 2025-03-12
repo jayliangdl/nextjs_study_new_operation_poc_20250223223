@@ -1,0 +1,21 @@
+{
+  "id": "config001",
+  "name": "基础布局配置",
+  "type": "layout",
+  "version": "1.0.0",
+  "layout": {
+    "direction": "horizontal",
+    "containers": [
+      {
+        "id": "container1",
+        "size": 50,
+        "type": "detail"
+      },
+      {
+        "id": "container2",
+        "size": 50,
+        "type": "detail"
+      }
+    ]
+  }
+} 

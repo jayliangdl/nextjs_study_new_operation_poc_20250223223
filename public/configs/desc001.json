@@ -1,0 +1,9 @@
+{
+  "componentType": "ContentDesc",
+  "props": {
+    "content": "这是一个动态组件加载示例，展示了如何通过配置文件动态加载不同类型的组件。",
+    "style": {
+      "padding": "20px"
+    }
+  }
+} 

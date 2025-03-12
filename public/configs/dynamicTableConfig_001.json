@@ -1,0 +1,47 @@
+{
+  "componentType": "DynamicTable",
+  "props": {
+    "title": "产品列表",
+    "columns": [
+      {
+        "title": "产品",
+        "dataIndex": "product",
+        "key": "product"
+      },
+      {
+        "title": "价格",
+        "dataIndex": "price",
+        "key": "price"
+      },
+      {
+        "title": "库存",
+        "dataIndex": "stock",
+        "key": "stock"
+      }
+    ],
+    "dataSource": {
+      "type": "mock",
+      "data": [
+        {
+          "product": "产品A",
+          "price": "¥100",
+          "stock": 200
+        },
+        {
+          "product": "产品B",
+          "price": "¥200",
+          "stock": 150
+        },
+        {
+          "product": "产品C",
+          "price": "¥300",
+          "stock": 100
+        }
+      ]
+    },
+    "pagination": {
+      "defaultPageSize": 10,
+      "pageSizeOptions": ["10", "20", "50"]
+    }
+  }
+}

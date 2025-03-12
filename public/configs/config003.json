@@ -1,0 +1,24 @@
+{
+  "id": "config003",
+  "name": "特殊功能配置",
+  "type": "feature",
+  "version": "1.0.0",
+  "features": {
+    "draggable": true,
+    "resizable": true,
+    "mergeEnabled": true,
+    "splitEnabled": true
+  },
+  "settings": {
+    "minSize": 10,
+    "maxSize": 90,
+    "snapThreshold": 5,
+    "defaultSize": 33.33
+  },
+  "styles": {
+    "borderColor": "#e5e5e5",
+    "borderWidth": 1,
+    "borderStyle": "solid",
+    "backgroundColor": "#ffffff"
+  }
+} 

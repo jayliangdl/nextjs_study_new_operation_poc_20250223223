@@ -1,0 +1,52 @@
+{
+  "id": "config002",
+  "name": "复杂嵌套布局",
+  "type": "layout",
+  "version": "1.0.0",
+  "layout": {
+    "direction": "vertical",
+    "containers": [
+      {
+        "id": "top",
+        "size": 30,
+        "type": "container",
+        "direction": "horizontal",
+        "children": [
+          {
+            "id": "top-left",
+            "size": 40,
+            "type": "detail"
+          },
+          {
+            "id": "top-right",
+            "size": 60,
+            "type": "detail"
+          }
+        ]
+      },
+      {
+        "id": "bottom",
+        "size": 70,
+        "type": "container",
+        "direction": "horizontal",
+        "children": [
+          {
+            "id": "bottom-left",
+            "size": 33.33,
+            "type": "detail"
+          },
+          {
+            "id": "bottom-middle",
+            "size": 33.33,
+            "type": "detail"
+          },
+          {
+            "id": "bottom-right",
+            "size": 33.34,
+            "type": "detail"
+          }
+        ]
+      }
+    ]
+  }
+} 
