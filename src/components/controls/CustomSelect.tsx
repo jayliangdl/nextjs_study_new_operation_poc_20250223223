@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import { Select } from 'antd';
-import { Field, SelectField } from '@/types/form';
-import { ControlProps } from './CustomInput';
+import { Field, SelectField, ControlProps } from '@/types/form';
 
 const CustomSelect: React.FC<ControlProps> = ({
   field,

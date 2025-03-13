@@ -2,16 +2,9 @@
 
 import React, { useState } from 'react';
 import { Input } from 'antd';
-import { Field, InputField } from '@/types/form';
+import { Field, InputField, ControlProps } from '@/types/form';
 
-export interface ControlProps {
-  field: Field;
-  [key: string]: any;
-}
-
-interface CustomInputProps extends ControlProps {}
-
-export const CustomInput: React.FC<CustomInputProps> = ({
+export const CustomInput: React.FC<ControlProps> = ({
   field,
   ...rest
 }) => {
@@ -39,7 +32,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
   );
 };
 
-const Password: React.FC<CustomInputProps> = ({
+const Password: React.FC<ControlProps> = ({
     field,
   ...rest
 }) => {
@@ -67,7 +60,7 @@ const Password: React.FC<CustomInputProps> = ({
   );
 };
 
-const TextArea: React.FC<CustomInputProps> = ({
+const TextArea: React.FC<ControlProps> = ({
     field,
     ...rest
 }) => {
@@ -95,9 +88,9 @@ const TextArea: React.FC<CustomInputProps> = ({
   );
 };
 
-type CustomInputComponent = React.FC<CustomInputProps> & {
-  Password: React.FC<CustomInputProps>;
-  TextArea: React.FC<CustomInputProps>;
+type CustomInputComponent = React.FC<ControlProps> & {
+  Password: React.FC<ControlProps>;
+  TextArea: React.FC<ControlProps>;
 };
 
 const CustomInputWithVariants = CustomInput as CustomInputComponent;

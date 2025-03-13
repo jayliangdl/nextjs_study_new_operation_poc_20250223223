@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Space, Radio } from 'antd';
+import { Space, Radio, message } from 'antd';
 import { CustomField } from '@/components/form/CustomField';
-import { InputField, InputNumberField, SelectField, TypeOfTitleAndControlLayout, FieldType } from '@/types/form';
+import { InputField, InputNumberField, SelectField, TypeOfTitleAndControlLayout, 
+  FieldType,Button,ButtonProps } from '@/types/form';
+import CustomButton from '@/components/controls/CustomButton';
 
 // 字段配置的 JSON 定义
 const fieldsConfig = `{
@@ -124,6 +126,17 @@ const fieldsConfig = `{
   ]
 }`;
 
+const buttonsConfig = `{
+  "buttons": [
+    {
+      "buttonId": "myButton",
+      "label": "Custom Button",
+      "type": "button",
+      "disabled": false
+    }
+  ]
+}`;
+
 const CustomFieldDemo: React.FC = () => {
   // 用于切换布局方式
   const [layout, setLayout] = useState<TypeOfTitleAndControlLayout>(
@@ -150,7 +163,7 @@ const CustomFieldDemo: React.FC = () => {
           );
         }
 
-        if (fieldConfig.fieldType === FieldType.NUMBER) {
+        else if (fieldConfig.fieldType === FieldType.NUMBER) {
           return new InputNumberField(
             fieldConfig.fieldId,
             fieldConfig.fieldName,
@@ -167,18 +180,54 @@ const CustomFieldDemo: React.FC = () => {
             fieldConfig.helpText
           );
         }
+
+        else if (fieldConfig.fieldType === FieldType.BUTTON) {
+          return new Button(
+            fieldConfig.fieldId,
+            fieldConfig.label,
+            fieldConfig.type,
+            fieldConfig.disabled,
+            () => {
+              message.success('Button clicked!');
+            }
+          );
+        }
         
-        return new InputField(
-          fieldConfig.fieldId,
-          fieldConfig.fieldName,
-          fieldConfig.fieldType as FieldType,
-          fieldConfig.defaultValue,
-          fieldConfig.required,
-          fieldConfig.readonly,
-          fieldConfig.disabled,
-          fieldConfig.placeholder,
-          fieldConfig.maxLength
-        );
+        else if (fieldConfig.fieldType === FieldType.TEXT || fieldConfig.fieldType === FieldType.PASSWORD || fieldConfig.fieldType === FieldType.TEXTAREA) {
+          return new InputField(
+            fieldConfig.fieldId,
+            fieldConfig.fieldName,
+            fieldConfig.fieldType as FieldType,
+            fieldConfig.defaultValue,
+            fieldConfig.required,
+            fieldConfig.readonly,
+            fieldConfig.disabled,
+            fieldConfig.placeholder,
+            fieldConfig.maxLength
+          );
+        }
+
+        else {
+          throw new Error(`类型错误，没有对应的字段类型: ${fieldConfig.fieldType}`);
+        }
+      });
+    } catch (error) {
+      console.error('解析字段配置失败:', error);
+      return [];
+    }
+  };
+
+
+  const createButtonsFromConfig = () => {
+    try {
+      const config = JSON.parse(buttonsConfig);
+      return config.buttons.map((buttonConfig: ButtonProps) => {
+          return new Button(
+            buttonConfig.buttonId,
+            buttonConfig.label,
+            buttonConfig.type,
+            buttonConfig.disabled
+          );
       });
     } catch (error) {
       console.error('解析字段配置失败:', error);
@@ -188,6 +237,9 @@ const CustomFieldDemo: React.FC = () => {
 
   // 创建字段实例
   const fields = createFieldsFromConfig();
+
+  // 创建按钮实例
+  const buttons = createButtonsFromConfig();
 
   // 处理字段值变化
 //   const handleFieldChange = (value: string) => {
@@ -222,14 +274,25 @@ const CustomFieldDemo: React.FC = () => {
           padding: '24px',
           backgroundColor: '#fff'
         }}>
-          {fields.map((field: InputField) => (
+          {fields.map((field:any) => (
             <CustomField
               key={field.getFieldName()}
               field={field}
               titleAndControlLayout={layout}
-            //   onChange={handleFieldChange}
             />
           ))}
+
+          {
+            buttons.map((button:any)=>(
+              <CustomButton
+                key={button.getLabel()}
+                buttonId={button.getButtonId()}
+                type={button.getType()}
+                label={button.getLabel()}
+                disabled={button.getDisabled()}
+              />
+            ))
+          }
         </div>
 
         {/* 说明文本 */}

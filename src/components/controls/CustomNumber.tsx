@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import { InputNumber } from 'antd';
-import { Field, InputNumberField } from '@/types/form';
-import { ControlProps } from './CustomInput';
+import { Field, InputNumberField, ControlProps } from '@/types/form';
 
 const CustomNumber: React.FC<ControlProps> = ({
   field,

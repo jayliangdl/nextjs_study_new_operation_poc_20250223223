@@ -25,19 +25,21 @@ class Form {
     }
 }
 
+type TYPE_OF_VALUE = string|number|boolean|undefined;
+
 abstract class Field {
     private fieldId: string;
     private fieldName: string;
     private fieldType: FieldType;
-    private defaultValue: string|number|boolean;
-    private value: string|number|boolean;
+    private defaultValue: TYPE_OF_VALUE;
+    private value: TYPE_OF_VALUE;
     private required: boolean;
     private readonly: boolean;
     private disabled: boolean;
 
     private helpText?: string;
 
-    constructor(fieldId: string, fieldName: string, fieldType: FieldType, defaultValue: string|number|boolean, required: boolean, readonly: boolean, disabled: boolean, helpText?: string) {
+    constructor(fieldId: string, fieldName: string, fieldType: FieldType, defaultValue: TYPE_OF_VALUE, required: boolean, readonly: boolean, disabled: boolean, helpText?: string) {
         this.fieldId = fieldId;
         this.fieldName = fieldName;
         this.fieldType = fieldType;
@@ -57,13 +59,13 @@ abstract class Field {
     getFieldType(): FieldType {
         return this.fieldType;
     }
-    getDefaultValue(): string|number|boolean {
+    getDefaultValue(): TYPE_OF_VALUE {
         return this.defaultValue;
     }
-    getValue(): string|number|boolean {
+    getValue(): TYPE_OF_VALUE {
         return this.value;
     }
-    setValue(value: string|number|boolean): void {
+    setValue(value: TYPE_OF_VALUE): void {
         this.value = value;
     }
     getRequired(): boolean {
@@ -84,7 +86,7 @@ class InputField extends Field {
     private placeholder: string;
     private maxLength?: number;
 
-    constructor(fieldId: string, fieldName: string, fieldType: FieldType, defaultValue: string|number|boolean, required: boolean, readonly: boolean, disabled: boolean, placeholder: string, maxLength: number) {
+    constructor(fieldId: string, fieldName: string, fieldType: FieldType, defaultValue: TYPE_OF_VALUE, required: boolean, readonly: boolean, disabled: boolean, placeholder: string, maxLength: number) {
         super(fieldId, fieldName, fieldType, defaultValue, required, readonly, disabled);
         this.placeholder = placeholder;
         this.maxLength = maxLength;
@@ -108,7 +110,7 @@ class InputNumberField extends Field {
         fieldId: string,
         fieldName: string,
         fieldType: FieldType,
-        defaultValue: string|number|boolean,
+        defaultValue: TYPE_OF_VALUE,
         required: boolean,
         readonly: boolean,
         disabled: boolean,
@@ -162,7 +164,7 @@ class SelectField extends Field {
         fieldId: string,
         fieldName: string,
         fieldType: FieldType,
-        defaultValue: string|number|boolean,
+        defaultValue: TYPE_OF_VALUE,
         required: boolean,
         readonly: boolean,
         disabled: boolean,
@@ -184,6 +186,46 @@ class SelectField extends Field {
     }
 }
 
+enum ButtonType {
+    PRIMARY='primary',
+    DEFAULT = 'default', 
+    DASHED = 'dashed',
+    LINK = 'link',
+    TEXT = 'text',
+}
+
+class Button {
+    private buttonId: string;
+    private type: ButtonType | undefined;
+    private label: string;
+    private disabled: boolean;
+
+    constructor(buttonId: string, label: string, 
+        type: ButtonType | undefined, 
+        disabled: boolean, onClick?: () => void) {
+        this.buttonId = buttonId;
+        this.label = label;
+        this.type = type;
+        this.disabled = disabled;
+    }
+
+    getButtonId(): string{
+        return this.buttonId;
+    }
+
+    getType(): ButtonType | undefined {
+        return this.type;
+    }
+
+    getLabel(): string {
+        return this.label
+    }
+
+    getDisabled(): boolean {
+        return this.disabled;
+    }
+}
+
 enum FieldType{
     TEXT = 'text',
     TEXTAREA = 'textarea',
@@ -194,6 +236,7 @@ enum FieldType{
     SELECT = 'select',
     RADIO = 'radio',
     CHECKBOX = 'checkbox',
+    BUTTON = 'button',
 }
 
 /**
@@ -204,5 +247,16 @@ enum TypeOfTitleAndControlLayout{
     vertical = 'vertical',
 }
 
-export { Form, Field, InputField, InputNumberField, SelectField, FieldType, TypeOfTitleAndControlLayout };
+export { Form, Field, InputField, InputNumberField, SelectField, FieldType, TypeOfTitleAndControlLayout, Button };
 
+export interface ControlProps {
+    field: Field;
+    [key: string]: any;
+}
+  
+export interface ButtonProps {
+    buttonId: string;
+    type: ButtonType | undefined;
+    label: string;
+    disabled: boolean;
+}

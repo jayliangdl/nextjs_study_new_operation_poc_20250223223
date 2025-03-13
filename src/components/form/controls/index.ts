@@ -1,7 +1,6 @@
-import { FieldType } from '@/types/form';
+import { FieldType, ControlProps } from '@/types/form';
 import dynamic from 'next/dynamic';
 import { ComponentType } from 'react';
-import { ControlProps } from '@/components/controls/CustomInput';
 
 type ControlMap = {
   [key in FieldType]?: () => Promise<ComponentType<ControlProps>>;
@@ -14,6 +13,7 @@ const controlMap: ControlMap = {
   [FieldType.PASSWORD]: () => import('../../controls/CustomInput').then(mod => mod.default.Password),
   [FieldType.NUMBER]: () => import('../../controls/CustomNumber').then(mod => mod.default),
   [FieldType.SELECT]: () => import('../../controls/CustomSelect').then(mod => mod.default),
+  // [FieldType.BUTTON]: () => import('../../controls/CustomButton').then(mod => mod.default),
 //   [FieldType.DATE]: () => dynamic(() => import('./DateControl')),
 //   [FieldType.TIME]: () => dynamic(() => import('./TimeControl')),
 //   [FieldType.RADIO]: () => dynamic(() => import('./RadioControl')),
