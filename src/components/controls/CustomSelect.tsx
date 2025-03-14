@@ -6,13 +6,14 @@ import { Field, SelectField, ControlProps } from '@/types/form';
 
 const CustomSelect: React.FC<ControlProps> = ({
   field,
-  ...rest
+  onChangeValue
 }) => {
   const [value, setValue] = useState<string | number>(field.getValue() as string | number);
   
   const handleChange = (newValue: string | number) => {    
     setValue(newValue);
     field.setValue(newValue);
+    onChangeValue?.(newValue);
   };
 
   // 确保字段是 SelectField 类型
@@ -30,7 +31,6 @@ const CustomSelect: React.FC<ControlProps> = ({
       options={field.getOptions()}
       className="custom-select"
       style={{ width: '100%', borderRadius: '6px' }}
-      {...rest}
     />
   );
 };

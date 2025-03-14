@@ -2,16 +2,17 @@
 
 import React, { useState } from 'react';
 import { Input } from 'antd';
-import { Field, InputField, ControlProps } from '@/types/form';
+import { InputField, ControlProps } from '@/types/form';
 
 export const CustomInput: React.FC<ControlProps> = ({
   field,
-  ...rest
+  onChangeValue
 }) => {
   const [value, setValue] = useState(String(field.getValue()));
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {    
     setValue(e.target.value);
     field.setValue(e.target.value);
+    onChangeValue?.(e.target.value);
   };
 
   // 获取长度限制
@@ -27,19 +28,19 @@ export const CustomInput: React.FC<ControlProps> = ({
       maxLength={maxLength}
       className="custom-input"
       style={{ borderRadius: '6px' }}
-      {...rest}
     />
   );
 };
 
 const Password: React.FC<ControlProps> = ({
     field,
-  ...rest
+    onChangeValue
 }) => {
     const [value, setValue] = useState(String(field.getValue()));
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {    
         setValue(e.target.value);
         field.setValue(e.target.value);
+        onChangeValue?.(e.target.value);
     };
 
   // 获取长度限制
@@ -55,19 +56,19 @@ const Password: React.FC<ControlProps> = ({
       maxLength={maxLength}
       className="custom-input"
       style={{ borderRadius: '6px' }}
-      {...rest}
     />
   );
 };
 
 const TextArea: React.FC<ControlProps> = ({
     field,
-    ...rest
+    onChangeValue
 }) => {
     const [value, setValue] = useState(String(field.getValue()));
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {    
       setValue(e.target.value);
       field.setValue(e.target.value);
+      onChangeValue?.(e.target.value);
     };
 
   // 获取长度限制
@@ -83,7 +84,6 @@ const TextArea: React.FC<ControlProps> = ({
       maxLength={maxLength}
       className="custom-input"
       style={{ borderRadius: '6px' }}
-      {...rest}
     />
   );
 };

@@ -1,21 +1,27 @@
 'use client';
 
 import React, { Suspense } from 'react';
-import { Field, TypeOfTitleAndControlLayout } from '@/types/form';
+import { Field, TypeOfTitleAndControlLayout,TYPE_OF_VALUE } from '@/types/form';
 import { getControl } from './controls';
 
 export interface CustomFieldProps {
   field: Field;
   titleAndControlLayout?: TypeOfTitleAndControlLayout;
+  onChangeValue:(fieldId:string,value:TYPE_OF_VALUE)=>void;
 }
 
 export const CustomField: React.FC<CustomFieldProps> = ({
   field,
   titleAndControlLayout = TypeOfTitleAndControlLayout.horizontal,
+  onChangeValue,
 }) => {
   // 渲染字段控件
   const renderFieldControl = () => {
     const fieldType = field.getFieldType();
+
+    const handleChangeValue : (value:TYPE_OF_VALUE) => void = (value:TYPE_OF_VALUE) => {
+      onChangeValue(field.getFieldId(),value);
+    }
 
     // 动态获取控件组件
     const Control = getControl(fieldType);
@@ -25,7 +31,7 @@ export const CustomField: React.FC<CustomFieldProps> = ({
       <Suspense fallback={
         <div style={{ color: '#999' }}>Loading...</div>
       }>
-        <Control field={field} />
+        <Control field={field} onChangeValue={handleChangeValue} />
       </Suspense>
     );
   };

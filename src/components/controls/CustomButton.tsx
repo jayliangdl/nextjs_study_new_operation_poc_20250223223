@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Button as AntButton } from 'antd';
-import { ButtonProps,Button } from '@/types/form';
+import { Button } from 'antd';
+import { ButtonProps } from '@/types/form';
 
 
 const CustomButton: React.FC<ButtonProps> = ({
@@ -10,24 +10,21 @@ const CustomButton: React.FC<ButtonProps> = ({
   type,
   label,
   disabled,
+  submit,
 }) => {
-
-  // const type = field instanceof Button ? field.getType(): undefined;
-  // const label = field instanceof Button ? field.getLabel(): undefined;
-  // const onClick = field instanceof Button ? field.getonClick(): undefined;
-
+  
   const handleClick = () => {
-    console.log('handleClick');
+    submit();
   };
 
   return (
-    <AntButton
+    <Button
       type={type}
       disabled={disabled}
       onClick={handleClick}
     >
       {label}
-    </AntButton>
+    </Button>
   );
 };
 

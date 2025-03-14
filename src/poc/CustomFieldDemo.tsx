@@ -2,10 +2,11 @@
 
 import React, { useState } from 'react';
 import { Space, Radio, message } from 'antd';
-import { CustomField } from '@/components/form/CustomField';
+// import { CustomField } from '@/components/form/CustomField';
 import { InputField, InputNumberField, SelectField, TypeOfTitleAndControlLayout, 
-  FieldType,Button,ButtonProps } from '@/types/form';
-import CustomButton from '@/components/controls/CustomButton';
+  FieldType,Button,ButtonProps,TYPE_OF_VALUE } from '@/types/form';
+// import CustomButton from '@/components/controls/CustomButton';
+import CustomForm from '@/components/form/CustomForm'
 
 // 字段配置的 JSON 定义
 const fieldsConfig = `{
@@ -180,18 +181,6 @@ const CustomFieldDemo: React.FC = () => {
             fieldConfig.helpText
           );
         }
-
-        else if (fieldConfig.fieldType === FieldType.BUTTON) {
-          return new Button(
-            fieldConfig.fieldId,
-            fieldConfig.label,
-            fieldConfig.type,
-            fieldConfig.disabled,
-            () => {
-              message.success('Button clicked!');
-            }
-          );
-        }
         
         else if (fieldConfig.fieldType === FieldType.TEXT || fieldConfig.fieldType === FieldType.PASSWORD || fieldConfig.fieldType === FieldType.TEXTAREA) {
           return new InputField(
@@ -218,7 +207,7 @@ const CustomFieldDemo: React.FC = () => {
   };
 
 
-  const createButtonsFromConfig = () => {
+  const createButtonsFromConfig = ():Button[] => {
     try {
       const config = JSON.parse(buttonsConfig);
       return config.buttons.map((buttonConfig: ButtonProps) => {
@@ -241,10 +230,6 @@ const CustomFieldDemo: React.FC = () => {
   // 创建按钮实例
   const buttons = createButtonsFromConfig();
 
-  // 处理字段值变化
-//   const handleFieldChange = (value: string) => {
-//     console.log('字段值变更为:', value);
-//   };
 
   return (
     <div style={{ padding: '24px' }}>
@@ -274,25 +259,7 @@ const CustomFieldDemo: React.FC = () => {
           padding: '24px',
           backgroundColor: '#fff'
         }}>
-          {fields.map((field:any) => (
-            <CustomField
-              key={field.getFieldName()}
-              field={field}
-              titleAndControlLayout={layout}
-            />
-          ))}
-
-          {
-            buttons.map((button:any)=>(
-              <CustomButton
-                key={button.getLabel()}
-                buttonId={button.getButtonId()}
-                type={button.getType()}
-                label={button.getLabel()}
-                disabled={button.getDisabled()}
-              />
-            ))
-          }
+          <CustomForm fields={fields} buttons={buttons} titleAndControlLayout={layout}/>
         </div>
 
         {/* 说明文本 */}

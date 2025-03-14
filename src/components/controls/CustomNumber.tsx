@@ -1,18 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import { InputNumber } from 'antd';
+import { InputNumber, InputNumberProps } from 'antd';
 import { Field, InputNumberField, ControlProps } from '@/types/form';
 
 const CustomNumber: React.FC<ControlProps> = ({
   field,
-  ...rest
+  onChangeValue,
 }) => {
   const [value, setValue] = useState<number | null>(Number(field.getValue()) || null);
   
-  const handleChange = (newValue: number | null) => {    
-    setValue(newValue);
-    field.setValue(newValue ?? '');
+  const handleChange = (newValue:number|null) =>  {
+      setValue(newValue);
+      field.setValue(newValue);
+      onChangeValue?.(newValue);
   };
 
   // 确保字段是 InputNumberField 类型
@@ -34,7 +35,6 @@ const CustomNumber: React.FC<ControlProps> = ({
       precision={field.getPrecision()}
       className="custom-input"
       style={{ width: '100%', borderRadius: '6px' }}
-      {...rest}
     />
   );
 };

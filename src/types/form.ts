@@ -25,7 +25,7 @@ class Form {
     }
 }
 
-type TYPE_OF_VALUE = string|number|boolean|undefined;
+export type TYPE_OF_VALUE = string|number|boolean|undefined|null;
 
 abstract class Field {
     private fieldId: string;
@@ -38,8 +38,11 @@ abstract class Field {
     private disabled: boolean;
 
     private helpText?: string;
+    // private onValueChange?: (value: string|number) => void;
 
-    constructor(fieldId: string, fieldName: string, fieldType: FieldType, defaultValue: TYPE_OF_VALUE, required: boolean, readonly: boolean, disabled: boolean, helpText?: string) {
+    constructor(fieldId: string, fieldName: string, fieldType: FieldType, defaultValue: TYPE_OF_VALUE, required: boolean, readonly: boolean, disabled: boolean, helpText?: string, 
+        // onValueChange?:(value:string|number)=>void
+    ) {
         this.fieldId = fieldId;
         this.fieldName = fieldName;
         this.fieldType = fieldType;
@@ -49,6 +52,7 @@ abstract class Field {
         this.readonly = readonly;
         this.disabled = disabled;
         this.helpText = helpText;
+        // this.onValueChange = onValueChange;
     }
     getFieldId(): string {
         return this.fieldId;
@@ -80,6 +84,9 @@ abstract class Field {
     getHelpText(): string | undefined {
         return this.helpText;
     }
+    // getOnValueChange():((value: string|number)=>void) | undefined{
+    //     return this.onValueChange;
+    // }
 }
 
 class InputField extends Field {
@@ -236,7 +243,6 @@ enum FieldType{
     SELECT = 'select',
     RADIO = 'radio',
     CHECKBOX = 'checkbox',
-    BUTTON = 'button',
 }
 
 /**
@@ -251,6 +257,7 @@ export { Form, Field, InputField, InputNumberField, SelectField, FieldType, Type
 
 export interface ControlProps {
     field: Field;
+    onChangeValue?: (value: TYPE_OF_VALUE) => void;
     [key: string]: any;
 }
   
@@ -259,4 +266,5 @@ export interface ButtonProps {
     type: ButtonType | undefined;
     label: string;
     disabled: boolean;
+    submit:()=>void;
 }
