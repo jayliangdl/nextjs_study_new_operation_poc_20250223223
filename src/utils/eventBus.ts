@@ -19,6 +19,8 @@ export enum EventType {
   
   // 标签页相关事件
   TAB_CHANGE = 'TAB_CHANGE',
+  // 标签页重命名事件
+  TAB_RENAME = 'TAB_RENAME',
 }
 
 // 事件总线类

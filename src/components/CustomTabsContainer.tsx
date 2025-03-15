@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { TabsContainer } from '../types/tabs';
 import CustomTabs from './CustomTabs';
 import { CustomTabsContent } from './CustomTabsContent';
+import loadConfig from '@/utils/configLoad';
 
 export interface TabContent {
   id: string;
@@ -13,32 +14,45 @@ export interface TabContent {
 }
 
 export interface CustomTabsContainerProps {
-  tabContents: TabContent[];
-  defaultActiveTabId?: string;
+  configId: string;
   className?: string;
   style?: React.CSSProperties;
 }
 
 export const CustomTabsContainer: React.FC<CustomTabsContainerProps> = ({
-  tabContents,
-  defaultActiveTabId,
+  configId,
   className = '',
   style = {}
 }) => {
+  const [tabConfig, setTabConfig] = useState<any>(null);
+  const [tabContainer, setTabContainer] = useState<TabsContainer | null>(null);
+
   // 使用 useMemo 缓存 tabItems，避免每次渲染都创建新数组
-  const tabItems = useMemo(() => tabContents.map(tab => ({
-    id: tab.id,
-    title: tab.label,
-    content: tab.content,
-    position: 0
-  })), [tabContents]);
+  const tabItems = useMemo(() => {
+    if (!tabConfig) return [];
+    return tabConfig.tabContents.map((tab: TabContent) => ({
+      id: tab.id,
+      title: tab.label,
+      content: tab.content,
+      position: 0
+    }));
+  }, [tabConfig]);
 
-  const [tabContainer, setTabContainer] = useState(() => new TabsContainer(tabItems, defaultActiveTabId));
-
-  // 只在 tabContents 或 defaultActiveTabId 真正变化时更新 tabContainer
+  // 加载配置
   useEffect(() => {
-    setTabContainer(new TabsContainer(tabItems, defaultActiveTabId));
-  }, [tabContents, defaultActiveTabId]);
+    loadConfig(configId, setTabConfig);
+  }, [configId]);
+
+  // 更新 tabContainer
+  useEffect(() => {
+    if (tabConfig && tabItems.length > 0) {
+      setTabContainer(new TabsContainer(tabItems, tabConfig.defaultActiveTabId));
+    }
+  }, [tabConfig, tabItems]);
+
+  if (!tabConfig || !tabContainer) {
+    return <div>加载中...</div>;
+  }
 
   return (
     <div 
@@ -56,7 +70,7 @@ export const CustomTabsContainer: React.FC<CustomTabsContainerProps> = ({
       />
       
       <CustomTabsContent 
-        tabContents={tabContents}
+        tabContents={tabConfig.tabContents}
         activeTabId={tabContainer.getDefaultActiveTabId()}
       />
     </div>

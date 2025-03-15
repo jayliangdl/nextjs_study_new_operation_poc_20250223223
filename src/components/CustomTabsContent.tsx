@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DynamicComponent } from './DynamicComponent';
-import { TabContent } from '../types/tabTypes';
-import { eventBus, EventType } from '../utils/eventBus';
+import { TabContent } from '@/types/tabTypes';
+import { eventBus, EventType } from '@/utils/eventBus';
 
 interface CustomTabsContentProps {
   tabContents: TabContent[];

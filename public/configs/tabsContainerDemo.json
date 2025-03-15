@@ -1,0 +1,26 @@
+{
+    "tabContents": [
+      {
+        "id": "tab1",
+        "label": "Tab1",
+        "content": {
+          "configId": "TabsContainerDemo_ContentDesc_001"
+        }
+      },
+      {
+        "id": "tab2",
+        "label": "Tab2",
+        "content": {
+          "configId": "TabsContainerDemo_ContentDesc_002"
+        }
+      },
+      {
+        "id": "tab3",
+        "label": "Tab3",
+        "content": {
+          "configId": "TabsContainerDemo_ContentDesc_003"
+        }
+      }
+    ],
+    "defaultActiveTabId": "tab1"
+}

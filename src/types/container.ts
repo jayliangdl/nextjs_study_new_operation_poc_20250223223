@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { v4 as uuid } from 'uuid';
+import { TabsProps } from 'antd';
 // 容器内容类型枚举
 export enum ContainerContentType {
   DynamicSplitter = 'DynamicSplitter',
@@ -25,4 +26,4 @@ export interface ContainerPropsV2 {
   contentType: ContainerContentTypeV2;  // 容器内容类型
   instanceId: string;                 // 容器实例编号
   children: ReactNode;                // 子组件
-} 
+}

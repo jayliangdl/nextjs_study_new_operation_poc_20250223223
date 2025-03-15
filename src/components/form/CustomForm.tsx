@@ -23,6 +23,14 @@ const CustomForm: React.FC<CustomFormProps> = ({ title, fields, buttons, titleAn
 
   return (
     <div>
+      <div style={{ 
+        fontSize: '16px', 
+        fontWeight: 'bold',
+        marginBottom: '20px',
+        color: '#333'
+      }}>
+        {title}
+      </div>
       
       {fields.map((field) => (
         <CustomField

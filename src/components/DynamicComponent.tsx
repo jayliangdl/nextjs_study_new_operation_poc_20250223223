@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import DynamicTable from './DynamicTable';
 import ContentDesc from './ContentDesc';
-
+import loadConfig from '@/utils/configLoad';
 // 组件映射表
 const componentMap = {
   DynamicTable,
@@ -20,27 +20,19 @@ export const DynamicComponent: React.FC<DynamicComponentProps> = ({ configId, co
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
+
+    if(!configId && !config){
+      console.error('configId和config不能同时为空');
+      return;
+    }
     
     // 如果直接传入配置，使用该配置
     if (config) {
       setComponentConfig(config);
       return;
     }
-
-    // 如果传入configId，从API获取配置
-    if (configId) {
-      fetch(`/api/config?configId=${configId}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.result === 1) {
-            setComponentConfig(data.data);
-          } else {
-            setError(data.message || '加载配置失败');
-          }
-        })
-        .catch(err => {
-          setError('加载配置出错: ' + err.message);
-        });
+    if(configId){
+      loadConfig(configId!, setComponentConfig);
     }
   }, [configId, config]);
 

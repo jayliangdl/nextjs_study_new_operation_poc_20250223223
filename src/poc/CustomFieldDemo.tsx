@@ -132,7 +132,7 @@ const buttonsConfig = `{
     {
       "buttonId": "myButton",
       "label": "Custom Button",
-      "type": "button",
+      "type": "primary",
       "disabled": false
     }
   ]
@@ -259,7 +259,7 @@ const CustomFieldDemo: React.FC = () => {
           padding: '24px',
           backgroundColor: '#fff'
         }}>
-          <CustomForm fields={fields} buttons={buttons} titleAndControlLayout={layout}/>
+          <CustomForm title={"测试"} fields={fields} buttons={buttons} titleAndControlLayout={layout}/>
         </div>
 
         {/* 说明文本 */}

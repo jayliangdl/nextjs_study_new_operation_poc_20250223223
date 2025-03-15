@@ -1,40 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import './TabsContainerDemo.css';
-import { CustomTabsContainer, CustomTabsContainerProps } from '@/components/CustomTabsContainer';
-
+import { CustomTabsContainer } from '@/components/CustomTabsContainer';
+import { eventBus, EventType } from '../utils/eventBus';
 /**
  * 标签页容器演示组件
  */
 const TabsContainerDemo: React.FC = () => {
-  // 定义标签页配置
-  const tabConfig: CustomTabsContainerProps = {
-    tabContents: [
-      {
-        id: 'tab1',
-        label: 'Tab1',
-        content: {
-          configId: 'TabsContainerDemo_ContentDesc_001',
-        }
-      },
-      {
-        id: 'tab2',
-        label: 'Tab2',
-        content: {
-          configId: 'TabsContainerDemo_ContentDesc_002',
-        }
-      },
-      {
-        id: 'tab3',
-        label: 'Tab3',
-        content: {
-          configId: 'TabsContainerDemo_ContentDesc_003',
-        }
-      }
-    ],
-    defaultActiveTabId: 'tab1'
+  const handleTabRename = () => {
+    // 重新加载配置的逻辑已经在 CustomTabsContainer 中处理
   };
+
+  // 订阅事件
+  useEffect(() => {
+    eventBus.subscribe(EventType.TAB_RENAME, handleTabRename);
+    return () => {
+      eventBus.unsubscribe(EventType.TAB_RENAME, handleTabRename);
+    };
+  }, []);
 
   return (
     <div className="tabs-demo-container">
@@ -42,9 +26,8 @@ const TabsContainerDemo: React.FC = () => {
         <h1>多标签页容器演示</h1>
         <p>这个演示展示了如何使用标签页组织不同的容器结构</p>
       </div>
-
       <div className="tabs-demo-content">
-        <CustomTabsContainer {...tabConfig} />
+        <CustomTabsContainer configId="tabsContainerDemo" />
       </div>
     </div>
   );
