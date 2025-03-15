@@ -3,6 +3,7 @@ import { TabsContainer } from '../types/tabs';
 import CustomTabs from './CustomTabs';
 import { CustomTabsContent } from './CustomTabsContent';
 import loadConfig from '@/utils/configLoad';
+import { eventBus,EventType } from '@/utils/eventBus';
 
 export interface TabContent {
   id: string;
@@ -50,29 +51,41 @@ export const CustomTabsContainer: React.FC<CustomTabsContainerProps> = ({
     }
   }, [tabConfig, tabItems]);
 
+  const handleTabRename = () => {
+    // 重新加载配置的逻辑已经在 CustomTabsContainer 中处理
+  };
+
+  // 订阅事件
+  useEffect(() => {
+    eventBus.subscribe(EventType.TAB_RENAME, handleTabRename);
+    return () => {
+      eventBus.unsubscribe(EventType.TAB_RENAME, handleTabRename);
+    };
+  }, []);
+
   if (!tabConfig || !tabContainer) {
     return <div>加载中...</div>;
+  }else{
+    return (
+      <div 
+        className={`custom-tabs-container ${className}`}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+          ...style
+        }}
+      >
+        <CustomTabs 
+          tabContainer={tabContainer} 
+          defaultActiveTab={tabContainer.getDefaultActiveTabId()}
+        />
+        
+        <CustomTabsContent 
+          tabContents={tabConfig.tabContents}
+          activeTabId={tabContainer.getDefaultActiveTabId()}
+        />
+      </div>
+    );
   }
-
-  return (
-    <div 
-      className={`custom-tabs-container ${className}`}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        ...style
-      }}
-    >
-      <CustomTabs 
-        tabContainer={tabContainer} 
-        defaultActiveTab={tabContainer.getDefaultActiveTabId()}
-      />
-      
-      <CustomTabsContent 
-        tabContents={tabConfig.tabContents}
-        activeTabId={tabContainer.getDefaultActiveTabId()}
-      />
-    </div>
-  );
 }; 

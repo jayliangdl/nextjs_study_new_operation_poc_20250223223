@@ -8,17 +8,7 @@ import { eventBus, EventType } from '../utils/eventBus';
  * 标签页容器演示组件
  */
 const TabsContainerDemo: React.FC = () => {
-  const handleTabRename = () => {
-    // 重新加载配置的逻辑已经在 CustomTabsContainer 中处理
-  };
-
-  // 订阅事件
-  useEffect(() => {
-    eventBus.subscribe(EventType.TAB_RENAME, handleTabRename);
-    return () => {
-      eventBus.unsubscribe(EventType.TAB_RENAME, handleTabRename);
-    };
-  }, []);
+  
 
   return (
     <div className="tabs-demo-container">
