@@ -1,0 +1,17 @@
+{
+  "props":{
+    "config":{
+      "fieldId": "username",
+      "fieldName": "用户名",
+      "fieldType": "text",
+      "defaultValue": "",
+      "required": true,
+      "readOnly": false,
+      "disabled": false,
+      "placeholder": "请输入用户名",
+      "maxLength": 5,
+      "helpText": "请输入您的用户名"
+    }
+  },
+  "componentType": "CustomField"
+} 

@@ -1,36 +1,118 @@
 'use client';
 
-import React, { Suspense } from 'react';
-import { Field, TypeOfTitleAndControlLayout,TYPE_OF_VALUE } from '@/types/form';
+import React, { Suspense, useState, useEffect } from 'react';
+import { TypeOfTitleAndControlLayout, TYPE_OF_VALUE } from '@/types/form';
 import { getControl } from './controls';
+import loadConfig from '@/utils/configLoad';
+import { InputField, InputNumberField, SelectField, FieldType } from '@/types/form';
+import { eventBus, EventType, getEventTypeWithBusinessId } from '@/utils/eventBus';
 
 export interface CustomFieldProps {
-  field: Field;
-  titleAndControlLayout?: TypeOfTitleAndControlLayout;
-  onChangeValue:(fieldId:string,value:TYPE_OF_VALUE)=>void;
+
+  /** configId 和 config 二选一，要么配置从调用者传入，要么仅传入configId，本组件会根据configId去加载配置 */
+  configId?: string;// 配置ID 
+  config?: any;// 具体配置(json)
+  titleAndControlLayout?: TypeOfTitleAndControlLayout;// 标题和控件布局
+  // onChangeValue: (fieldId: string, value: TYPE_OF_VALUE) => void;// 值变化回调
+  /**
+   * 业务属性，
+   * 背景：业务属性。
+   * 有时候，容器和子容器或子容器下的Detail（例如表单及表单下的字段）需要传递一些业务属性。
+   * 比如：formId，这时候可以通过这个属性传递
+   */
+  businessProps?: any;
 }
 
 export const CustomField: React.FC<CustomFieldProps> = ({
-  field,
+  configId,
+  config,  
   titleAndControlLayout = TypeOfTitleAndControlLayout.horizontal,
-  onChangeValue,
+  // onChangeValue,
+  businessProps
 }) => {
+  const [field, setField] = useState<InputField | InputNumberField | SelectField | null>(null);
+
+  const fieldInst = (config: any) => {
+    // 根据配置创建对应的字段实例
+    let fieldInstance;
+    if (config.fieldType === FieldType.SELECT) {
+      fieldInstance = new SelectField(
+        config.fieldId,
+        config.fieldName,
+        config.fieldType,
+        config.defaultValue,
+        config.required,
+        config.readOnly,
+        config.disabled,
+        config.placeholder,
+        config.options,
+        config.helpText
+      );
+    } else if (config.fieldType === FieldType.NUMBER) {
+      fieldInstance = new InputNumberField(
+        config.fieldId,
+        config.fieldName,
+        config.fieldType,
+        config.defaultValue,
+        config.required,
+        config.readOnly,
+        config.disabled,
+        config.placeholder,
+        config.min,
+        config.max,
+        config.step,
+        config.precision,
+        config.helpText
+      );
+    } else {
+      fieldInstance = new InputField(
+        config.fieldId,
+        config.fieldName,
+        config.fieldType,
+        config.defaultValue,
+        config.required,
+        config.readOnly,
+        config.disabled,
+        config.placeholder,
+        config.maxLength,
+        config.helpText
+      );
+    }
+    setField(fieldInstance);
+  };
+
+  // 使用configId初始化字段
+  useEffect(() => {
+    if (configId) {
+      loadConfig(configId, fieldInst);
+    }
+  }, [configId]);
+
+  // 使用config初始化字段
+  useEffect(() => {
+    fieldInst(config);    
+  }, [config]);
+
+  if (!field) {
+    return <div>加载中...</div>;
+  }
+
   // 渲染字段控件
   const renderFieldControl = () => {
+    
     const fieldType = field.getFieldType();
+    const eventType = getEventTypeWithBusinessId(EventType.FORM_FILLING, businessProps.formId);
+    const handleChangeValue = (value: TYPE_OF_VALUE) => {
+      eventBus.publish(eventType, {
+        fieldId: field.getFieldId(),
+        value: value
+      });
+    };
 
-    const handleChangeValue : (value:TYPE_OF_VALUE) => void = (value:TYPE_OF_VALUE) => {
-      onChangeValue(field.getFieldId(),value);
-    }
-
-    // 动态获取控件组件
     const Control = getControl(fieldType);
-
-    // 使用 Suspense 包裹动态组件
+    
     return (
-      <Suspense fallback={
-        <div style={{ color: '#999' }}>Loading...</div>
-      }>
+      <Suspense fallback={<div style={{ color: '#999' }}>Loading...</div>}>
         <Control field={field} onChangeValue={handleChangeValue} />
       </Suspense>
     );

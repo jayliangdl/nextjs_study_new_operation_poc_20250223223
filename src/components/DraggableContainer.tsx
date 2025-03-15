@@ -103,10 +103,8 @@ export const DraggableContainer: React.FC<ExtendedContainerProps> = ({
     e.currentTarget.setAttribute('data-instance-id', instanceId);
     // 设置全局变量
     (window as any).currentDraggingId = instanceId;
-    console.log('DraggableContainer handleDragStart:', instanceId);
     // 设置拖拽数据
     e.dataTransfer.setData('text/plain', instanceId);
-    console.log('开始拖动组件:', instanceId);
     onDragStart?.(instanceId);
   };
 

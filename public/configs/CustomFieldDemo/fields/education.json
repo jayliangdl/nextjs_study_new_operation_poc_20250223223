@@ -1,0 +1,23 @@
+{
+  "props":{
+    "config":{
+      "fieldId": "education",
+      "fieldName": "学历",
+      "fieldType": "select",
+      "defaultValue": "",
+      "required": false,
+      "readOnly": false,
+      "disabled": false,
+      "placeholder": "请选择学历",
+      "options": [
+        { "label": "高中", "value": "high_school" },
+        { "label": "专科", "value": "college" },
+        { "label": "本科", "value": "bachelor" },
+        { "label": "硕士", "value": "master" },
+        { "label": "博士", "value": "phd" }
+      ],
+      "helpText": "请选择您的最高学历"
+    }
+  },
+  "componentType": "CustomField"
+}

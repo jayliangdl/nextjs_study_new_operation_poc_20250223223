@@ -1,0 +1,18 @@
+{
+  "props":{
+    "config":{
+      "fieldId": "readonly",
+      "fieldName": "只读字段",
+      "fieldType": "text",
+      "defaultValue": "这是一个只读字段",
+      "required": false,
+    "readOnly": true,
+      "disabled": false,
+      "placeholder": "",
+      "maxLength": 50,
+      "minLength": 0,
+      "helpText": "这是一个只读字段示例"
+    }
+  },
+  "componentType": "CustomField"
+}

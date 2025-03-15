@@ -7,6 +7,13 @@ import { Button } from 'antd';
 interface ContainerV1Props {
   container: Container;
   className?: string;
+  /**
+   * 业务属性，
+   * 背景：业务属性。
+   * 有时候，容器和子容器或子容器下的Detail（例如表单及表单下的字段）需要传递一些业务属性。
+   * 比如：formId，这时候可以通过这个属性传递
+   */
+  businessProps?: any;
 }
 
 // 创建一个全局 Map 来存储容器的更新函数
@@ -14,7 +21,7 @@ const containerUpdateMap = new Map<string, (details: Detail[]) => void>();
 // 将 containerUpdateMap 添加到 window 对象
 (window as any).containerUpdateMap = containerUpdateMap;
 
-export const ContainerV1: React.FC<ContainerV1Props> = ({ container, className }) => {
+export const ContainerV1: React.FC<ContainerV1Props> = ({ container, className, businessProps }) => {
   const [details, setDetails] = React.useState([...container.details]);
 
   // 在组件挂载时注册更新函数，卸载时移除
@@ -77,8 +84,6 @@ export const ContainerV1: React.FC<ContainerV1Props> = ({ container, className }
     }
 
     refreshView(rootContainer);
-    // const jsonStr = rootContainer.printStructureFromRootContainer();
-    // console.log(jsonStr);
   }
 
   /**
@@ -89,7 +94,7 @@ export const ContainerV1: React.FC<ContainerV1Props> = ({ container, className }
     const updateFn = containerUpdateMap.get(container.id);
     if (updateFn) {
       const containerToUpdate = container.findContainer(container.id);
-      console.log('ContainerV1 handleDrop updateFn:',containerToUpdate);
+      // console.log('ContainerV1 handleDrop updateFn:',containerToUpdate);
       updateFn([...containerToUpdate.details]);
     }
 
@@ -98,14 +103,12 @@ export const ContainerV1: React.FC<ContainerV1Props> = ({ container, className }
 
   const addDetail = () => {
     const newDetail = new Detail(DetailType.Detail, container);
-    
     container.addDetail(newDetail);
     const rootContainer = container.getRootContainer();
     refreshView(rootContainer);
   }
-
   return (
-    <div id={container.id} style={containerStyle} className={className}>
+    <div id={container.id} style={containerStyle} className={className} key={container.id}>
       {/* <div>{container.direction}</div> */}
       {container.needFirstAndLastResizer && (
         <ResizerV1
@@ -122,46 +125,49 @@ export const ContainerV1: React.FC<ContainerV1Props> = ({ container, className }
           referenceDetailId={details.length>0?details[0].id:''}
         />
       )}
-      {details.map((detail, index) => (
-        <React.Fragment key={detail.id}>
-          <div style={{ flex: `${detail.size}%` }}>
-            {detail.type === DetailType.Container ? (
-              <ContainerV1 container={detail as Container} key={detail.id} />
-            ) : (
-              <DetailV1 
-              detailIndexInParent={index}                
-                detail={detail}
-                parentDirection={container.direction}
+      {details.map((detail, index) => {
+        return (
+          <React.Fragment key={detail.id}>
+            <div style={{ flex: `${detail.size}%` }}>
+              {detail.type === DetailType.Container ? (
+                <ContainerV1 container={detail as Container} key={detail.id} businessProps={businessProps} />
+              ) : (
+                <DetailV1 
+                  businessProps={businessProps}
+                detailIndexInParent={index}                
+                  detail={detail}
+                  parentDirection={container.direction}
+                  onDrop={handleDrop}
+                />
+              )}
+            </div>
+            {container.needFirstAndLastResizer && (
+              <ResizerV1
+                direction={container.direction}
+                index={index < details.length - 1 ? index + 1 : index}
+                parentType={DetailType.Container}
+                totalDetails={container.details.length}
+                referenceDetailId={details[index].id}
+                insertPosition={index < details.length - 1 ? 
+                  (container.direction === Direction.Horizontal ? InsertPositionV2.Left : InsertPositionV2.Above) :
+                  (container.direction === Direction.Horizontal ? InsertPositionV2.Right : InsertPositionV2.Below)
+                }
+                draggingDetailIdOfRejectDrop={
+                  details.length > index+1 ? `${details[index].id},${details[index+1].id}` :
+                  details.length === index+1  ? details[index].id :
+                  ''
+                }
+                onResize={
+                  container.direction === Direction.Horizontal && 
+                  index < container.details.length - 1 ? 
+                  handleResize : undefined
+                }
                 onDrop={handleDrop}
               />
             )}
-          </div>
-          {container.needFirstAndLastResizer && (
-            <ResizerV1
-              direction={container.direction}
-              index={index < details.length - 1 ? index + 1 : index}
-              parentType={DetailType.Container}
-              totalDetails={container.details.length}
-              referenceDetailId={details[index].id}
-              insertPosition={index < details.length - 1 ? 
-                (container.direction === Direction.Horizontal ? InsertPositionV2.Left : InsertPositionV2.Above) :
-                (container.direction === Direction.Horizontal ? InsertPositionV2.Right : InsertPositionV2.Below)
-              }
-              draggingDetailIdOfRejectDrop={
-                details.length > index+1 ? `${details[index].id},${details[index+1].id}` :
-                details.length === index+1  ? details[index].id :
-                ''
-              }
-              onResize={
-                container.direction === Direction.Horizontal && 
-                index < container.details.length - 1 ? 
-                handleResize : undefined
-              }
-              onDrop={handleDrop}
-            />
-          )}
-        </React.Fragment>
-      ))}
+          </React.Fragment>
+        );
+      })}
       {container.availableAddDetail() && <Button type="primary" onClick={addDetail}>Add More</Button>}
     </div>
   );

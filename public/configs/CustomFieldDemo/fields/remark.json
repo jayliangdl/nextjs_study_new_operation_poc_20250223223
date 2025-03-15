@@ -1,0 +1,19 @@
+{
+  "props":{
+    "config":{
+      "fieldId": "remark",
+      "fieldName": "备注",
+      "fieldType": "textarea",
+      "defaultValue": "",
+      "required": false,
+      "readOnly": false,
+    "disabled": false,
+      "placeholder": "请输入备注信息",
+      "maxLength": 100,
+      "minLength": 0,
+      "helpText": "选填项，请输入备注信息",
+      "rows": 4
+    }
+  },
+  "componentType": "CustomField"
+}

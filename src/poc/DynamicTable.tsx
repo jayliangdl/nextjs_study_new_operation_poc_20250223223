@@ -2,7 +2,7 @@
 
 import React from 'react';
 import DynamicTable from '@/components/DynamicTable';
-import type { TableConfig } from '@/types/dynamicTable';
+import type { DynamicTableConfig } from '@/types/dynamicTable';
 
 // Mock 数据示例
 const mockData = Array.from({ length: 100 }).map((_, index) => ({
@@ -13,7 +13,7 @@ const mockData = Array.from({ length: 100 }).map((_, index) => ({
 }));
 
 // Mock 数据源配置示例
-const mockConfig: TableConfig = {
+const mockConfig: DynamicTableConfig = {
   columns: [
     {
       key: 'id',

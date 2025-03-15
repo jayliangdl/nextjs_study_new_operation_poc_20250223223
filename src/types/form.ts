@@ -93,8 +93,10 @@ class InputField extends Field {
     private placeholder: string;
     private maxLength?: number;
 
-    constructor(fieldId: string, fieldName: string, fieldType: FieldType, defaultValue: TYPE_OF_VALUE, required: boolean, readonly: boolean, disabled: boolean, placeholder: string, maxLength: number) {
-        super(fieldId, fieldName, fieldType, defaultValue, required, readonly, disabled);
+    constructor(fieldId: string, fieldName: string, fieldType: FieldType, 
+        defaultValue: TYPE_OF_VALUE, required: boolean, readonly: boolean, 
+        disabled: boolean, placeholder: string, maxLength: number, helpText?: string) {
+        super(fieldId, fieldName, fieldType, defaultValue, required, readonly, disabled, helpText);
         this.placeholder = placeholder;
         this.maxLength = maxLength;
     }
@@ -268,3 +270,9 @@ export interface ButtonProps {
     disabled: boolean;
     submit:()=>void;
 }
+
+export interface CustomFieldProps {
+    field: Field;
+    titleAndControlLayout?: TypeOfTitleAndControlLayout;
+    onChangeValue:(fieldId:string,value:TYPE_OF_VALUE)=>void;
+  }

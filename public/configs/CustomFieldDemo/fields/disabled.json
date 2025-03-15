@@ -1,0 +1,18 @@
+{
+  "props":{
+    "config":{
+      "fieldId": "disabled",
+      "fieldName": "禁用字段",
+      "fieldType": "text",
+      "defaultValue": "这是一个禁用字段",
+      "required": false,
+      "readOnly": false,
+      "disabled": true,
+      "placeholder": "",
+      "maxLength": 50,
+      "minLength": 0,
+      "helpText": "这是一个禁用字段示例"
+    }
+  },
+  "componentType": "CustomField"
+}

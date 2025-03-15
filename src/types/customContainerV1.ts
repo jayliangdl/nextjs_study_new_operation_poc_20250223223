@@ -136,7 +136,7 @@ export class Detail {
     const detail = new Detail(config.type, parent);
     // 使用反射或其他方式设置私有属性
     Object.assign(detail, {
-      _id: config.id,
+      _id: config.id || uuid(),
       _size: config.size,
       _style: config.style,
       _configId: config.configId
@@ -332,7 +332,7 @@ export class Container extends Detail {
     const container = new Container(config.direction, parent);
     
     Object.assign(container, {
-      _id: config.id,
+      _id: config.id || uuid(),
       _size: config.size,
       _style: config.style
     });

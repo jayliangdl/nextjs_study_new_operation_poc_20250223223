@@ -1,0 +1,21 @@
+{
+  "props":{
+    "config":{
+      "fieldId": "gender",
+      "fieldName": "性别",
+      "fieldType": "select",
+      "defaultValue": "",
+      "required": true,
+      "readOnly": false,
+      "disabled": false,
+      "placeholder": "请选择性别",
+      "options": [
+        { "label": "男", "value": "male" },
+            { "label": "女", "value": "female" },
+            { "label": "其他", "value": "other" }
+          ],
+          "helpText": "请选择您的性别"
+        }
+  },
+  "componentType": "CustomField"
+} 

@@ -21,14 +21,18 @@ export enum EventType {
   TAB_CHANGE = 'TAB_CHANGE',
   // 标签页重命名事件
   TAB_RENAME = 'TAB_RENAME',
+  // 表单填写事件（用户在输入所有表单中的字段时，会触发此事件）
+  FORM_FILLING = 'FORM_FILLING',
+  // 表单提交事件（用户在提交表单时，会触发此事件）
+  FORM_SUBMIT = 'FORM_SUBMIT',
 }
 
 // 事件总线类
 class EventBus {
-  private handlers: Map<EventType, EventHandler[]> = new Map();
+  private handlers: Map<string, EventHandler[]> = new Map();
 
   // 订阅事件
-  subscribe(eventType: EventType, handler: EventHandler): void {
+  subscribe(eventType: string, handler: EventHandler): void {
     if (!this.handlers.has(eventType)) {
       this.handlers.set(eventType, []);
     }
@@ -40,7 +44,7 @@ class EventBus {
   }
 
   // 取消订阅事件
-  unsubscribe(eventType: EventType, handler: EventHandler): void {
+  unsubscribe(eventType: string, handler: EventHandler): void {
     if (!this.handlers.has(eventType)) {
       return;
     }
@@ -55,7 +59,7 @@ class EventBus {
   }
 
   // 发布事件
-  publish(eventType: EventType, data: any): void {
+  publish(eventType: string, data: any): void {
     if (!this.handlers.has(eventType)) {
       return;
     }
@@ -72,6 +76,11 @@ class EventBus {
     }
   }
 }
+
+// 动态事件类型组装方法
+export const getEventTypeWithBusinessId = (eventType: string, businessId: string) => {
+  return `${businessId}-${eventType}`;
+};
 
 // 导出单例实例
 export const eventBus = new EventBus();

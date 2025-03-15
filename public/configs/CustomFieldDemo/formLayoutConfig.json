@@ -1,0 +1,82 @@
+{
+  "direction": "vertical",
+  "details": [
+    {
+      "type": "detail",
+      "size": 100,
+      "configId": "CustomFieldDemo/fields/username",
+      "componentType": "CustomField",
+      "props": {}
+    },
+    {
+      "type": "container",
+      "size": 100,
+      "direction": "horizontal",
+      "details": [
+        {
+          "type": "detail",
+          "size": 50,
+          "configId": "CustomFieldDemo/fields/gender",
+          "componentType": "CustomField",
+          "props": {}
+        },
+        {
+          "type": "detail",
+          "size": 50,
+          "configId": "CustomFieldDemo/fields/age",
+          "componentType": "CustomField",
+          "props": {}
+        }            
+      ]
+    },
+    {
+      "type": "detail",
+      "size": 100,
+      "configId": "CustomFieldDemo/fields/password",
+      "componentType": "CustomField",
+      "props": {}
+    },
+    {
+      "type": "detail",
+      "size": 100,
+      "configId": "CustomFieldDemo/fields/education",
+      "componentType": "CustomField",
+      "props": {}
+    },
+    {
+      "type": "detail",
+      "size": 100,
+      "configId": "CustomFieldDemo/fields/remark",
+      "componentType": "CustomField",
+      "props": {}
+    },
+    {
+      "type": "detail",
+      "size": 100,
+      "configId": "CustomFieldDemo/fields/readonly",
+      "componentType": "CustomField",
+      "props": {}
+    },
+    {
+      "type": "detail",
+      "size": 100,
+      "configId": "CustomFieldDemo/fields/disabled",
+      "componentType": "CustomField",
+      "props": {}
+    },
+    {
+      "type": "container",
+      "size": 100,
+      "direction": "horizontal",
+      "details": [
+        {
+          "type": "detail",
+          "size": 100,
+          "configId": "CustomFieldDemo/buttons/submit",
+          "componentType": "CustomButton",
+          "props": {}
+        }
+      ]
+    }
+  ]
+} 

@@ -1,0 +1,20 @@
+{
+    "props":{
+        "config":{
+            "fieldId": "age",
+            "fieldName": "年龄",
+            "fieldType": "number",
+            "defaultValue": "",
+            "required": true,
+            "readOnly": false,
+            "disabled": false,
+            "placeholder": "请输入年龄",
+            "min": 0,
+            "max": 150,
+            "step": 1,
+            "precision": 0,
+            "helpText": "请输入您的年龄"
+        }
+    },
+    "componentType": "CustomField"
+} 

@@ -3,16 +3,12 @@
 import React from 'react';
 import { Flex, Typography } from 'antd';
 
-interface ContentConfig {
+interface ContentDescConfig {
   content: React.ReactNode;
   style?: React.CSSProperties;
 }
 
-interface ContentDescProps {
-  config: ContentConfig;
-}
-
-const ContentDesc: React.FC<ContentDescProps> = ({ config = {} as ContentConfig }) => {
+const ContentDesc: React.FC<ContentDescConfig> = (config:ContentDescConfig) => {
   const { content, style } = config;
   
   return (

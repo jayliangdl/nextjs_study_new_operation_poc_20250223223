@@ -4,18 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import type { TableProps } from 'antd';
 import { DataFetcher, FetchResult } from '@/services/dataFetcher';
-import type { TableConfig, ColumnConfig } from '@/types/dynamicTable';
-
-interface DynamicTableProps {
-  config: TableConfig;
-}
+import type { DynamicTableConfig, ColumnConfig } from '@/types/dynamicTable';
 
 const defaultPagination = {
   defaultPageSize: 10,
   pageSizeOptions: ['10', '20', '50', '100']
 };
 
-const DynamicTable: React.FC<DynamicTableProps> = ({ config = {} as TableConfig }) => {
+const DynamicTable: React.FC<DynamicTableConfig> = (config:DynamicTableConfig) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
@@ -28,7 +24,6 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ config = {} as TableConfig 
   
   const [pageSize, setPageSize] = useState(tablePagination.defaultPageSize);
 
-  console.log('config', JSON.stringify(config));
   const dataFetcher = new DataFetcher(config.dataSource || []);
 
   // 转换列配置为 Ant Design Table 需要的格式
@@ -44,9 +39,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ config = {} as TableConfig 
   const fetchData = async (page: number, size: number) => {
     setLoading(true);
     try {
-      console.log('Fetching data with config:', config);
       const result: FetchResult = await dataFetcher.fetch({ page, pageSize: size });
-      console.log('Fetch result:', result);
       // 确保每条数据都有唯一的 key
       const dataWithKeys = result.data.map((item: any, index: number) => ({
         ...item,

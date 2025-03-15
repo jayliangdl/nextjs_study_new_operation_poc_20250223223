@@ -1,0 +1,11 @@
+{
+  "props":{
+    "config":{
+      "buttonId": "submit",
+      "label": "提交",
+      "type": "primary",
+      "disabled": false
+    }
+  },
+  "componentType": "CustomButton"
+} 
