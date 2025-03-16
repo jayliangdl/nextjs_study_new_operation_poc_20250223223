@@ -1,19 +1,19 @@
 'use client';
 
 import React, { Suspense, useState, useEffect } from 'react';
+import { Form } from 'antd';
 import { TypeOfTitleAndControlLayout, TYPE_OF_VALUE } from '@/types/form';
 import { getControl } from './controls';
 import loadConfig from '@/utils/configLoad';
 import { InputField, InputNumberField, SelectField, FieldType } from '@/types/form';
 import { eventBus, EventType, getEventTypeWithBusinessId } from '@/utils/eventBus';
+import { withComponentRegister } from '@/utils/componentRegistry';
 
 export interface CustomFieldProps {
-
   /** configId 和 config 二选一，要么配置从调用者传入，要么仅传入configId，本组件会根据configId去加载配置 */
   configId?: string;// 配置ID 
   config?: any;// 具体配置(json)
   titleAndControlLayout?: TypeOfTitleAndControlLayout;// 标题和控件布局
-  // onChangeValue: (fieldId: string, value: TYPE_OF_VALUE) => void;// 值变化回调
   /**
    * 业务属性，
    * 背景：业务属性。
@@ -23,11 +23,10 @@ export interface CustomFieldProps {
   businessProps?: any;
 }
 
-export const CustomField: React.FC<CustomFieldProps> = ({
+const CustomField: React.FC<CustomFieldProps> = ({
   configId,
   config,  
   titleAndControlLayout = TypeOfTitleAndControlLayout.horizontal,
-  // onChangeValue,
   businessProps
 }) => {
   const [field, setField] = useState<InputField | InputNumberField | SelectField | null>(null);
@@ -90,7 +89,9 @@ export const CustomField: React.FC<CustomFieldProps> = ({
 
   // 使用config初始化字段
   useEffect(() => {
-    fieldInst(config);    
+    if (config) {
+      fieldInst(config);    
+    }
   }, [config]);
 
   if (!field) {
@@ -99,7 +100,6 @@ export const CustomField: React.FC<CustomFieldProps> = ({
 
   // 渲染字段控件
   const renderFieldControl = () => {
-    
     const fieldType = field.getFieldType();
     const eventType = getEventTypeWithBusinessId(EventType.FORM_FILLING, businessProps.formId);
     const handleChangeValue = (value: TYPE_OF_VALUE) => {
@@ -165,4 +165,5 @@ export const CustomField: React.FC<CustomFieldProps> = ({
   );
 };
 
-export default CustomField;
+// 使用高阶组件注册组件
+export default withComponentRegister<CustomFieldProps>('CustomField')(CustomField);

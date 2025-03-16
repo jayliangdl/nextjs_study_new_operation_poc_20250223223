@@ -84,7 +84,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
       eventBus.unsubscribe(eventTypeFormFilling, handleFormFilling);
       eventBus.unsubscribe(eventTypeFormSubmit, handleFormSubmit);
     };
-  }, []);
+  }, [formConfig?.formId]);
 
   // 使用静态工厂方法初始化容器
   

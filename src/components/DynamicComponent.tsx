@@ -1,77 +1,81 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import DynamicTable from './DynamicTable';
-import ContentDesc from './ContentDesc';
+import { componentRegistry } from '@/utils/componentRegistry';
 import loadConfig from '@/utils/configLoad';
-import CustomField from '@/components/form/CustomField';
-import CustomButton from '@/components/controls/CustomButton';
-// 组件映射表
-const componentMap = {
-  DynamicTable,
-  ContentDesc,
-  CustomField,
-  CustomButton,
-};
+
+// 配置类型
+interface DynamicComponentConfig {
+  componentType: string;  // 改回 string 类型，因为现在是动态注册
+  props: any;
+}
 
 interface DynamicComponentProps {
   configId?: string;
-  config?: any;
-  /**
-   * 业务属性，
-   * 背景：业务属性。
-   * 有时候，容器和子容器或子容器下的Detail（例如表单及表单下的字段）需要传递一些业务属性。
-   * 比如：formId，这时候可以通过这个属性传递
-   */
+  config?: DynamicComponentConfig;
   businessProps?: any;
 }
 
 export const DynamicComponent: React.FC<DynamicComponentProps> = ({ configId, config, businessProps }) => {
-  const [componentConfig, setComponentConfig] = useState<any>(null);
+  const [componentConfig, setComponentConfig] = useState<DynamicComponentConfig | null>(null);
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
     if(!configId && !config){
       console.error('configId和config不能同时为空');
+      setError('错误：需要提供 configId 或 config 参数');
       return;
     }
     
-    // 如果直接传入配置，使用该配置
+    // 如果直接传入配置，验证并使用该配置
     if (config) {
+      if (!config.componentType || !componentRegistry.hasComponent(config.componentType)) {
+        const error = `错误：无效的组件类型 ${config.componentType}。可用类型：${componentRegistry.getRegisteredTypes().join(', ')}`;
+        console.error(error);
+        setError(error);
+        return;
+      }
       setComponentConfig(config);
       return;
     }
+
     if(configId){
-      loadConfig(configId!, setComponentConfig);
+      loadConfig(configId!, (loadedConfig) => {
+        if (!loadedConfig.componentType || !componentRegistry.hasComponent(loadedConfig.componentType)) {
+          const error = `错误：配置文件 ${configId} 包含无效的组件类型 ${loadedConfig.componentType}。可用类型：${componentRegistry.getRegisteredTypes().join(', ')}`;
+          console.error(error);
+          setError(error);
+          return;
+        }
+        setComponentConfig(loadedConfig);
+      });
     }
   }, [configId, config]);
 
-  if (!configId && !config) {
-    return <div className="error">错误：需要提供 configId 或 config 参数</div>;
-  }
-
   if (error) {
-    return <div className="error">{error}</div>;
+    return <div className="error" style={{ color: 'red', padding: '8px' }}>{error}</div>;
   }
 
   if (!componentConfig) {
     return <div>加载中...</div>;
-  } else{
-
-    // 获取组件类型
-    const ComponentType = componentMap[componentConfig.componentType as keyof typeof componentMap];
-    
-    if (!ComponentType) {
-      return <div className="error">错误：未找到组件类型 {componentConfig.componentType}</div>;
-    }
-
-    // 统一使用 config 属性传递配置
-    // 使用类型断言确保类型安全
-    // return React.createElement(
-    //   ComponentType as React.ComponentType<any>, 
-    //   { config: componentConfig.props }
-    // );
-    return <ComponentType {...componentConfig.props} businessProps={businessProps} />;
   }
+
+  // 获取组件类型
+  const componentEntry = componentRegistry.getComponent(componentConfig.componentType);
   
-} 
+  if (!componentEntry) {
+    return <div className="error" style={{ color: 'red', padding: '8px' }}>
+      错误：未找到组件类型 {componentConfig.componentType}
+    </div>;
+  }
+
+  const Component = componentEntry.component;
+
+  // 合并 businessProps 到组件 props
+  const componentProps = {
+    ...componentConfig.props,
+    businessProps
+  };
+
+  return <Component {...componentProps} />;
+}; 

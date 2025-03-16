@@ -2,13 +2,14 @@
 
 import React from 'react';
 import { Flex, Typography } from 'antd';
+import { withComponentRegister } from '@/utils/componentRegistry';
 
-interface ContentDescConfig {
+export interface ContentDescProps {
   content: React.ReactNode;
   style?: React.CSSProperties;
 }
 
-const ContentDesc: React.FC<ContentDescConfig> = (config:ContentDescConfig) => {
+const ContentDesc: React.FC<ContentDescProps> = (config: ContentDescProps) => {
   const { content, style } = config;
   
   return (
@@ -34,4 +35,5 @@ const ContentDesc: React.FC<ContentDescConfig> = (config:ContentDescConfig) => {
   );
 }
 
-export default ContentDesc; 
+// 使用高阶组件注册组件
+export default withComponentRegister<ContentDescProps>('ContentDesc')(ContentDesc); 

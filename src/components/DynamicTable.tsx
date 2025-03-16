@@ -4,14 +4,15 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import type { TableProps } from 'antd';
 import { DataFetcher, FetchResult } from '@/services/dataFetcher';
-import type { DynamicTableConfig, ColumnConfig } from '@/types/dynamicTable';
+import type { DynamicTableProps, ColumnConfig } from '@/types/dynamicTable';
+import { withComponentRegister } from '@/utils/componentRegistry';
 
 const defaultPagination = {
   defaultPageSize: 10,
   pageSizeOptions: ['10', '20', '50', '100']
 };
 
-const DynamicTable: React.FC<DynamicTableConfig> = (config:DynamicTableConfig) => {
+const DynamicTable: React.FC<DynamicTableProps> = (config:DynamicTableProps) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
@@ -80,5 +81,5 @@ const DynamicTable: React.FC<DynamicTableConfig> = (config:DynamicTableConfig) =
     />
   );
 };
-
-export default DynamicTable; 
+// 使用高阶组件注册组件
+export default withComponentRegister<DynamicTableProps>('DynamicTable')(DynamicTable);

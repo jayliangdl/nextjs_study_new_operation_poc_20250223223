@@ -32,7 +32,7 @@ export interface MockDataSourceConfig {
 export type DataSourceConfig = ApiDataSourceConfig | MockDataSourceConfig;
 
 // 完整的表格配置
-export interface DynamicTableConfig {
+export interface DynamicTableProps {
   columns: ColumnConfig[];
   pagination: PaginationConfig;
   dataSource: DataSourceConfig;

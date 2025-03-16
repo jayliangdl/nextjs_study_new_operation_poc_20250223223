@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/locale/zh_CN'
+import '../components/componentRegistry.generated'
 
 const inter = Inter({ subsets: ['latin'] })
 
