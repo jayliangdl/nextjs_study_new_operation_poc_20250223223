@@ -1,40 +1,42 @@
 {
   "componentType": "DynamicTable",
   "props": {
-    "title": "用户列表",
-    "columns": [
-      {
-        "title": "姓名",
-        "dataIndex": "name",
-        "key": "name"
-      },
-      {
-        "title": "年龄",
-        "dataIndex": "age",
-        "key": "age"
-      },
-      {
-        "title": "城市",
-        "dataIndex": "city",
-        "key": "city"
-      }
-    ],
-    "dataSource": [
-      {
-        "name": "张三",
-        "age": 28,
-        "city": "北京"
-      },
-      {
-        "name": "李四",
-        "age": 32,
-        "city": "上海"
-      },
-      {
-        "name": "王五",
-        "age": 25,
-        "city": "广州"
-      }
-    ]
+    "config":{
+      "title": "用户列表",
+      "columns": [
+        {
+          "title": "姓名",
+          "dataIndex": "name",
+          "key": "name"
+        },
+        {
+          "title": "年龄",
+          "dataIndex": "age",
+          "key": "age"
+        },
+        {
+          "title": "城市",
+          "dataIndex": "city",
+          "key": "city"
+        }
+      ],
+      "dataSource": [
+        {
+          "name": "张三",
+          "age": 28,
+          "city": "北京"
+        },
+        {
+          "name": "李四",
+          "age": 32,
+          "city": "上海"
+        },
+        {
+          "name": "王五",
+          "age": 25,
+          "city": "广州"
+        }
+      ]
+    }
   }
 } 

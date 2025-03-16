@@ -1,11 +1,13 @@
 {
     "componentType": "ContentDesc",
     "props": {
-      "content": "003",
-      "style": {
-        "padding": "10px",
-        "backgroundColor": "#f9f9f9",
-        "borderRadius": "8px"
+      "config":{
+          "content": "003",
+          "style": {
+          "padding": "10px",
+          "backgroundColor": "#f9f9f9",
+          "borderRadius": "8px"
+        }
       }
     }
   }

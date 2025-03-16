@@ -93,6 +93,7 @@ const demoConfig: ContainerConfig = {
                 id: 'detail0-0-0',
                 type: DetailType.Detail,
                 configId: 'containerDemoV1_ContentDesc_001',
+                componentType: 'ContentDesc',
                 size: 34,
                 style: {
                     backgroundColor: randomColor()
@@ -103,6 +104,7 @@ const demoConfig: ContainerConfig = {
                 id: 'detail0-0-1',
                 type: DetailType.Detail,
                 configId: 'containerDemoV1_ContentDesc_002',
+                componentType: 'ContentDesc',
                 size: 33,
                 style: {
                     backgroundColor: randomColor()
@@ -113,6 +115,7 @@ const demoConfig: ContainerConfig = {
                 id: 'detail0-0-2',
                 type: DetailType.Detail,
                 configId: 'containerDemoV1_ContentDesc_003',
+                componentType: 'ContentDesc',
                 size: 33,
                 style: {
                     backgroundColor: randomColor()

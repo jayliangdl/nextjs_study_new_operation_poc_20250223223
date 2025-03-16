@@ -15,12 +15,16 @@
           {
             "id": "top-left",
             "size": 40,
-            "type": "detail"
+            "type": "detail",
+            "configId": "containerDemoV1_ContentDesc_001",
+            "componentType": "ContentDesc"
           },
           {
             "id": "top-right",
             "size": 60,
-            "type": "detail"
+            "type": "detail",
+            "configId": "containerDemoV1_ContentDesc_002",
+            "componentType": "ContentDesc"
           }
         ]
       },
@@ -33,17 +37,23 @@
           {
             "id": "bottom-left",
             "size": 33.33,
-            "type": "detail"
+            "type": "detail",
+            "configId": "containerDemoV1_ContentDesc_001",
+            "componentType": "ContentDesc"
           },
           {
             "id": "bottom-middle",
             "size": 33.33,
-            "type": "detail"
+            "type": "detail",
+            "configId": "containerDemoV1_ContentDesc_002",
+            "componentType": "ContentDesc"
           },
           {
             "id": "bottom-right",
             "size": 33.34,
-            "type": "detail"
+            "type": "detail",
+            "configId": "containerDemoV1_ContentDesc_001",
+            "componentType": "ContentDesc"
           }
         ]
       }

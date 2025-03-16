@@ -1,6 +1,7 @@
 {
   "componentType": "DynamicTable",
   "props": {
+    "config": {
     "title": "产品列表",
     "columns": [
       {
@@ -36,12 +37,53 @@
           "product": "产品C",
           "price": "¥300",
           "stock": 100
+        },
+        {
+          "product": "产品D",
+          "price": "¥300",
+          "stock": 100
+        },
+        {
+          "product": "产品E",
+          "price": "¥300",
+          "stock": 100
+        },
+        {
+          "product": "产品F",
+          "price": "¥300",
+          "stock": 100
+        },
+        {
+          "product": "产品G",
+          "price": "¥300",
+          "stock": 100
+        },
+        {
+          "product": "产品H",
+          "price": "¥300",
+          "stock": 100
+        },
+        {
+          "product": "产品I",
+          "price": "¥300",
+          "stock": 100
+        },
+        {
+          "product": "产品J",
+          "price": "¥300",
+          "stock": 100
+        },
+        {
+          "product": "产品K",
+          "price": "¥300",
+          "stock": 100
         }
       ]
     },
     "pagination": {
       "defaultPageSize": 10,
-      "pageSizeOptions": ["10", "20", "50"]
+        "pageSizeOptions": ["10", "20", "50"]
+      }
     }
   }
 }

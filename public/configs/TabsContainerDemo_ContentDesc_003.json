@@ -1,11 +1,13 @@
 {
     "componentType": "ContentDesc",
     "props": {
-      "content": "这个是Tab3的内容",
-      "style": {
-        "padding": "10px",
-        "backgroundColor": "#f9f9f9",
-        "borderRadius": "8px"
+      "config":{
+        "content": "这个是Tab3的内容",
+        "style": {
+          "padding": "10px",
+          "backgroundColor": "#f9f9f9",
+          "borderRadius": "8px"
+        }
       }
     }
   }

@@ -1,11 +1,13 @@
 {
   "componentType": "ContentDesc",
   "props": {
-    "content": "<div style='text-align: center; padding: 10px'><h3>动态内容描述</h3><p>这是一个在容器中嵌入的动态内容组件</p><ul style='list-style: none; padding: 0'><li>✅ 可自由布局的容器</li><li>✅ 动态加载的组件</li><li>✅ 灵活的配置方式</li></ul></div>",
-    "style": {
-      "padding": "10px",
-      "backgroundColor": "#f9f9f9",
-      "borderRadius": "8px"
+    "config":{
+      "content": "<div style='text-align: center; padding: 10px'><h3>动态内容描述</h3><p>这是一个在容器中嵌入的动态内容组件</p><ul style='list-style: none; padding: 0'><li>✅ 可自由布局的容器</li><li>✅ 动态加载的组件</li><li>✅ 灵活的配置方式</li></ul></div>",
+      "style": {
+        "padding": "10px",
+        "backgroundColor": "#f9f9f9",
+        "borderRadius": "8px"
+      }
     }
   }
 }

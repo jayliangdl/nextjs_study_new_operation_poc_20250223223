@@ -58,8 +58,7 @@ export const DynamicComponent: React.FC<DynamicComponentProps> = ({ configId, co
 
   if (!componentConfig) {
     return <div>加载中...</div>;
-  }
-
+  }  
   // 获取组件类型
   const componentEntry = componentRegistry.getComponent(componentConfig.componentType);
   
@@ -76,6 +75,5 @@ export const DynamicComponent: React.FC<DynamicComponentProps> = ({ configId, co
     ...componentConfig.props,
     businessProps
   };
-
   return <Component {...componentProps} />;
 }; 

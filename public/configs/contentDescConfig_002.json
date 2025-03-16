@@ -1,12 +1,14 @@
 {
   "componentType": "ContentDesc",
   "props": {
-    "content": "<div style='text-align: center; padding: 10px'><h3>系统信息</h3><p>这是一个系统信息展示组件</p><div style='margin-top: 20px; text-align: left'><p>✅ 系统版本: v1.0.0</p><p>✅ 更新时间: 2025-03-05</p><p>✅ 状态: 运行正常</p></div></div>",
-    "style": {
-      "padding": "15px",
-      "backgroundColor": "#f0f8ff",
-      "borderRadius": "8px",
-      "border": "1px solid #e6f7ff"
+    "config":{
+      "content": "<div style='text-align: center; padding: 10px'><h3>系统信息</h3><p>这是一个系统信息展示组件</p><div style='margin-top: 20px; text-align: left'><p>✅ 系统版本: v1.0.0</p><p>✅ 更新时间: 2025-03-05</p><p>✅ 状态: 运行正常</p></div></div>",
+      "style": {
+        "padding": "15px",
+        "backgroundColor": "#f0f8ff",
+        "borderRadius": "8px",
+        "border": "1px solid #e6f7ff"
+      }
     }
   }
 }

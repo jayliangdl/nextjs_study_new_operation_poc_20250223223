@@ -47,6 +47,7 @@ export interface DetailConfig {
   size: number;
   style?: React.CSSProperties;
   configId?: string;
+  componentType?: string;
 }
 
 // 容器配置接口
@@ -64,6 +65,7 @@ export class Detail {
   private _status: Status;
   private _style?: React.CSSProperties;
   private _configId?: string;
+  private _componentType?: string;
   constructor(type: DetailType, parent?: Container,id?:string) {
     if(typeof id === 'string'){
       this._id = id;
@@ -113,6 +115,21 @@ export class Detail {
     return this._configId;
   }
 
+  get componentType(): string | undefined {
+    return this._componentType;
+  }
+
+  toConfigJSON(): DetailConfig {
+    return {
+      id: this._id,
+      type: this._type,
+      size: this._size,
+      configId: this._configId,
+      style: this._style,
+      componentType: this._componentType
+    };
+  }
+
   public get needFirstAndLastResizer(): boolean {
     if (this._parent && 
         this._parent.direction === Direction.Horizontal && 
@@ -133,13 +150,18 @@ export class Detail {
    * @returns Detail实例
    */
   static init(config: DetailConfig, parent: Container): Detail {
+    // 确保有传入componentType
+    if(!config.componentType){
+      throw new Error('初始化出错，componentType不能为空');
+    }
     const detail = new Detail(config.type, parent);
     // 使用反射或其他方式设置私有属性
     Object.assign(detail, {
       _id: config.id || uuid(),
       _size: config.size,
       _style: config.style,
-      _configId: config.configId
+      _configId: config.configId,
+      _componentType: config.componentType
     });
     return detail;
   }
@@ -154,6 +176,16 @@ export class Container extends Detail {
     super(DetailType.Container, parent,id);
     this._direction = direction;
     this._details = [];
+  }
+
+  toConfigJSON(): ContainerConfig {
+    return {
+      id: this.id,
+      type: this.type,
+      size: this.size,
+      direction: this._direction,
+      details: this._details.map(detail => detail.toConfigJSON())
+    };
   }
 
   get direction(): Direction {
@@ -228,6 +260,9 @@ export class Container extends Detail {
   // }
   // 重新计算明细尺寸
   protected recalculateDetailSizes(): void {
+    if(this.direction === Direction.Vertical){
+      return;
+    }
     const detailCount = this._details.length;
     if (detailCount > 0) {
       const size = 100 / detailCount;
@@ -364,7 +399,6 @@ export class Container extends Detail {
 
   // 添加新方法
   findContainer(containerId: string): Container {
-    // console.log('findContainer', containerId);
     if (this.id === containerId) {
       return this;
     }
@@ -402,7 +436,6 @@ export class Container extends Detail {
    * @param insertPosition 插入目标容器中的具体位置（参照原容器某个detail的前面或后面）- 插入位置相对于目标位置的前面或后面（before 或 after）
    */
   mergeDetailIntoContainer(movingDetailId: string, referenceDetailId: string, referenceDetailIndex: number, insertPosition: InsertPosition): void {
-    // console.log('mergeDetailIntoContainer:', movingDetailId, referenceDetailId, referenceDetailIndex, insertPosition);
     const [targetContainer, targetIndex, targetDetail] = this.findDetail(referenceDetailId);
     const [movingContainer, movingDetailIndex, movingDetail] = this.findDetail(movingDetailId);
     const movingDetailClone = lodash.cloneDeep(movingDetail);
@@ -438,7 +471,6 @@ export class Container extends Detail {
    * @param insertPositionV2 被移动detail插入到已有detail的方向(left: 在目标位置的左侧, right: 在目标位置的右侧, above: 在目标位置的上方, below: 在目标位置的下方)
    */
   mergeDetailIntoDetail(movingDetailId: string, targetDetailId: string, referenceDetailIndex: number, insertPositionV2: InsertPositionV2): void {
-    // console.log('mergeDetailIntoDetail:', movingDetailId, targetDetailId, referenceDetailIndex, insertPositionV2);
     //如果移动的detail和目标detail是同一个detail，则不进行合并
     if(movingDetailId===targetDetailId){
       return;

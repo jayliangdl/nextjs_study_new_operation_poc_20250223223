@@ -1,47 +1,49 @@
 {
   "componentType": "DynamicTable",
   "props": {
-    "title": "用户列表",
-    "columns": [
-      {
-        "title": "用户ID",
-        "dataIndex": "id",
-        "key": "id"
-      },
-      {
-        "title": "用户名",
-        "dataIndex": "username",
-        "key": "username"
-      },
-      {
-        "title": "邮箱",
-        "dataIndex": "email",
-        "key": "email"
-      }
-    ],
-    "dataSource": {
-      "type": "mock",
-      "data": [
+    "config": {
+      "title": "用户列表",
+      "columns": [
         {
-          "id": 1,
-          "username": "user001",
-          "email": "user001@example.com"
+          "title": "用户ID",
+          "dataIndex": "id",
+          "key": "id"
         },
         {
-          "id": 2,
-          "username": "user002",
-          "email": "user002@example.com"
+          "title": "用户名",
+          "dataIndex": "username",
+          "key": "username"
         },
         {
-          "id": 3,
-          "username": "user003",
-          "email": "user003@example.com"
+          "title": "邮箱",
+          "dataIndex": "email",
+          "key": "email"
         }
-      ]
-    },
-    "pagination": {
-      "defaultPageSize": 10,
-      "pageSizeOptions": ["10", "20", "50"]
+      ],
+      "dataSource": {
+        "type": "mock",
+        "data": [
+          {
+            "id": 1,
+            "username": "user001",
+            "email": "user001@example.com"
+          },
+          {
+            "id": 2,
+            "username": "user002",
+            "email": "user002@example.com"
+          },
+          {
+            "id": 3,
+            "username": "user003",
+            "email": "user003@example.com"
+          }
+        ]
+      },
+      "pagination": {
+        "defaultPageSize": 10,
+          "pageSizeOptions": ["10", "20", "50"]
+        }
     }
   }
 }

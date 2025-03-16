@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import './TabsContainerDemo.css';
 import { CustomTabsContainer } from '@/components/CustomTabsContainer';
-import { eventBus, EventType } from '../utils/eventBus';
+
 /**
  * 标签页容器演示组件
  */

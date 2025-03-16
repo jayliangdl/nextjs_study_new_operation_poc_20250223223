@@ -62,7 +62,7 @@ export const DetailV1: React.FC<DetailV1Props> = ({
             content: detail.id,
             style: detail.style
           }}/> */}
-          <DynamicComponent configId={detail.configId} businessProps={businessProps}/>
+          {detail.configId && <DynamicComponent configId={detail.configId} businessProps={businessProps}/>}
         </DraggableContainer>
       </div>
       {detail.needFirstAndLastResizer && (

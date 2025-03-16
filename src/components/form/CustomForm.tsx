@@ -76,8 +76,11 @@ const CustomForm: React.FC<CustomFormProps> = ({
   };
 
   useEffect(() => {
-    const eventTypeFormFilling = getEventTypeWithBusinessId(EventType.FORM_FILLING, formConfig.formId);
-    const eventTypeFormSubmit = getEventTypeWithBusinessId(EventType.FORM_SUBMIT, formConfig.formId);
+    if(!formConfig?.formId){
+      return;
+    }
+    const eventTypeFormFilling = getEventTypeWithBusinessId(EventType.FORM_FILLING, formConfig?.formId);
+    const eventTypeFormSubmit = getEventTypeWithBusinessId(EventType.FORM_SUBMIT, formConfig?.formId);
     eventBus.subscribe(eventTypeFormFilling, handleFormFilling);
     eventBus.subscribe(eventTypeFormSubmit, handleFormSubmit);
     return () => {

@@ -35,6 +35,7 @@ const DynamicContainerDemo: React.FC = () => {
             type: DetailType.Detail,
             size: 50,
             configId: 'dynamicTableConfig_001',
+            componentType: 'CustomTable',
             style: {
               backgroundColor: randomColor()
             }
@@ -44,6 +45,7 @@ const DynamicContainerDemo: React.FC = () => {
             type: DetailType.Detail,
             size: 50,
             configId: 'contentDescConfig_001',
+            componentType: 'ContentDesc',
             style: {
               backgroundColor: randomColor()
             }
@@ -61,6 +63,7 @@ const DynamicContainerDemo: React.FC = () => {
             type: DetailType.Detail,
             size: 33,
             configId: 'dynamicTableConfig_002',
+            componentType: 'CustomTable',
             style: {
               backgroundColor: randomColor()
             }
@@ -70,6 +73,7 @@ const DynamicContainerDemo: React.FC = () => {
             type: DetailType.Detail,
             size: 33,
             configId: 'dynamicTableConfig_003',
+            componentType: 'CustomTable',
             style: {
               backgroundColor: randomColor()
             }
@@ -79,6 +83,7 @@ const DynamicContainerDemo: React.FC = () => {
             type: DetailType.Detail,
             size: 34,
             configId: 'contentDescConfig_002',
+            componentType: 'ContentDesc',
             style: {
               backgroundColor: randomColor()
             }

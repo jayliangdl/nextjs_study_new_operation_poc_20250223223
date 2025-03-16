@@ -9,12 +9,16 @@
       {
         "id": "container1",
         "size": 50,
-        "type": "detail"
+        "type": "detail",
+        "configId": "containerDemoV1_ContentDesc_001",
+        "componentType": "ContentDesc"
       },
       {
         "id": "container2",
         "size": 50,
-        "type": "detail"
+        "type": "detail",
+        "configId": "containerDemoV1_ContentDesc_002",
+        "componentType": "ContentDesc"
       }
     ]
   }

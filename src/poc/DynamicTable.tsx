@@ -18,24 +18,28 @@ const mockConfig: DynamicTableConfig = {
     {
       key: 'id',
       title: 'ID',
+      dataIndex: 'id',
       sortable: true,
       width: 80,
     },
     {
       key: 'name',
       title: '姓名',
+      dataIndex: 'name',
       sortable: true,
       width: 120,
     },
     {
       key: 'age',
       title: '年龄',
+      dataIndex: 'age',
       sortable: true,
       width: 100,
     },
     {
       key: 'address',
       title: '地址',
+      dataIndex: 'address',
       sortable: false,
     },
   ],

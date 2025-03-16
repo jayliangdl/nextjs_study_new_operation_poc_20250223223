@@ -1,74 +1,93 @@
 {
-  "direction": "vertical",
+  "id": "container_0",
   "type": "container",
+  "direction": "vertical",
   "details": [
     {
+      "id": "detail_0_0",
       "type": "detail",
       "size": 100,
       "configId": "CustomFieldDemo/fields/username",
       "componentType": "CustomField"
     },
     {
+      "id": "container_0_1",
       "type": "container",
       "size": 100,
       "direction": "horizontal",
       "details": [
         {
+          "id": "detail_0_1_0",
           "type": "detail",
           "size": 50,
           "configId": "CustomFieldDemo/fields/gender",
           "componentType": "CustomField"
         },
         {
+          "id": "detail_0_1_1",
           "type": "detail",
           "size": 50,
           "configId": "CustomFieldDemo/fields/age",
           "componentType": "CustomField"
-        }            
+        }
       ]
     },
     {
+      "id": "detail_0_2",
       "type": "detail",
       "size": 100,
       "configId": "CustomFieldDemo/fields/password",
       "componentType": "CustomField"
     },
     {
+      "id": "detail_0_3",
       "type": "detail",
       "size": 100,
       "configId": "CustomFieldDemo/fields/education",
       "componentType": "CustomField"
     },
     {
+      "id": "detail_0_4",
       "type": "detail",
       "size": 100,
       "configId": "CustomFieldDemo/fields/remark",
       "componentType": "CustomField"
     },
     {
+      "id": "detail_0_5",
       "type": "detail",
       "size": 100,
       "configId": "CustomFieldDemo/fields/readonly",
       "componentType": "CustomField"
     },
     {
+      "id": "detail_0_6",
       "type": "detail",
       "size": 100,
       "configId": "CustomFieldDemo/fields/disabled",
       "componentType": "CustomField"
     },
     {
+      "id": "container_0_7",
       "type": "container",
       "size": 100,
       "direction": "horizontal",
       "details": [
         {
+          "id": "detail_0_7_0",
           "type": "detail",
-          "size": 100,
+          "size": 50,
           "configId": "CustomFieldDemo/buttons/submit",
           "componentType": "CustomButton"
+        },
+        {
+          "id": "test000001",
+          "type": "detail",
+          "size": 50,
+          "configId": "CustomFieldDemo/fields/test",
+          "componentType": "CustomField"
         }
       ]
     }
   ]
-} 
+}
